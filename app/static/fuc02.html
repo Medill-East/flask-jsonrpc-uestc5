@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>进制转换</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/fuc02/styles.css" type="text/css" rel="stylesheet"/>
+    <script src="resources/scripts/jquery-3.2.1.min.js"></script>
+    <script src="data/document.js"></script>
+    <script src="files/fuc02/data.js"></script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (SVG) -->
+      <div id="u30" class="ax_default _图片_">
+        <img id="u30_img" class="img " src="images/home/u0.svg"/>
+        <div id="u30_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (SVG) -->
+      <div id="u31" class="ax_default _图片_">
+        <img id="u31_img" class="img " src="images/home/u1.svg"/>
+        <div id="u31_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (SVG) -->
+      <div id="u32" class="ax_default _图片_">
+        <img id="u32_img" class="img " src="images/home/u12.svg"/>
+        <div id="u32_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+<form name="thisform" method="get">
+      <!-- Unnamed (下拉列表) -->
+      <div id="u33" class="ax_default droplist">
+        <div id="u33_div" class=""></div>
+        <select id="u33_input" class="u33_input">
+          <option class="u33_input_option" value="数制">数制</option>
+          <option class="u33_input_option" value="b">二进制</option>
+          <option class="u33_input_option" value="d">十进制</option>
+          <option class="u33_input_option" value="h">十六进制</option>
+        </select>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u34" class="ax_default button">
+        <div id="u34_div" class=""></div>
+        <div id="u34_text" class="text ">
+          <input type="button" onclick="json_post()" style="BACKGROUND-COLOR: transparent;border: 0" value="点击显示结果">
+        </div>
+      </div>
+
+      <!-- Unnamed (文本框) -->
+      <div id="u35" class="ax_default text_field">
+        <div id="u35_div" class=""></div>
+        <input id="u35_input" type="text" value="输入" class="u35_input" onClick="this.value=''" onBlur="if(this.value=='')this.value='输入'" />
+      </div>
+
+
+
+      <!-- Unnamed (下拉列表) -->
+      <div id="u37" class="ax_default droplist">
+        <div id="u37_div" class=""></div>
+        <select id="u37_input" class="u37_input">
+          <option class="u37_input_option" value="数制">数制</option>
+          <option class="u37_input_option" value="b">二进制</option>
+          <option class="u37_input_option" value="d">十进制</option>
+          <option class="u37_input_option" value="h">十六进制</option>
+        </select>
+      </div>
+</form>
+		      <!-- Unnamed (文本框) -->
+      <div id="u36" class="ax_default text_field">
+        <div id="u36_div" class=""></div>
+		  
+        <output id="u36_input" type="text" class="u36_input"  /></output>
+      </div>
+		
+		
+      <!-- Unnamed (图片 ) -->
+      <a href="home.html"><div id="u38" class="ax_default _图片_">
+        <img id="u38_img" class="img " src="images/fuc00/u21.png"/>
+        <div id="u38_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div></a>
+    </div>
+    <script src="resources/scripts/axure/ios.js"></script>
+
+        <script type="text/javascript">
+          function getRandomInRange(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+          function json_post() {
+            var Input = document.getElementById("u35_input").value;
+            var Isn = document.getElementById("u33_input").value;
+            var Osn = document.getElementById("u37_input").value;
+            var object = {};
+            var params = [];
+            var binaryReg = /^[0-1]+$/;
+            var decimalReg = /^[0-9]+$/;
+            var hexadecimalReg = /^[0-9A-F]+$/i;
+
+            function checkBinary(binary) {
+              return binaryReg.test(binary);}
+      
+            function checkDecimal(decimal) {
+              return decimalReg.test(decimal);}
+
+            function checkHex(hex) {
+              return hexadecimalReg.test(hex);}
+
+            object["id"] = getRandomInRange(0, 100);
+            object["method"] = "Convert";
+            object["jsonrpc"] = "2.0";
+            object["params"] = [Input, Isn, Osn]
+
+            if (((Isn == "b") && (!checkBinary(Input))) || ((Isn == "d") && (!checkDecimal(Input))) || ((Isn == "h") && (!checkHex(Input))))
+            {
+              alert("非法输入，请检查");
+            }
+
+            var json = JSON.stringify(object);
+            $(document).ready(function () {
+              $.ajax({
+                type: 'POST',
+                url: "http://localhost:5000/",
+                data: json,
+                contentType: 'application/json; charset=UTF-8',
+
+                success: function (data) {
+                  $("#u36_input").text(data.result);
+
+                }
+
+              });
+            });
+          }
+        </script>
+
+  </body>
+</html>

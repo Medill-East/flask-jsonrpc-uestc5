@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>日期计算</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/fuc00/styles.css" type="text/css" rel="stylesheet"/>
+    <script src="resources/scripts/jquery-3.2.1.min.js"></script>
+    <script src="data/document.js"></script>
+    <script src="files/fuc00/data.js"></script>
+  </head>
+
+  <body>
+    <div id="base" class="">
+      <!-- Unnamed (SVG) -->
+      <div id="u14" class="ax_default _图片_">
+        <img id="u14_img" class="img " src="images/home/u0.svg"/>
+        <div id="u14_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (SVG) -->
+      <div id="u15" class="ax_default _图片_">
+        <img id="u15_img" class="img " src="images/home/u1.svg"/>
+        <div id="u15_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (SVG) -->
+      <div id="u16" class="ax_default _图片_">
+        <img id="u16_img" class="img " src="images/home/u12.svg"/>
+        <div id="u16_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+<form name="reg_testdate" method="get">
+      <!-- Unnamed (下拉列表) -->
+      <div id="u17" name="div1" class="ax_default droplist">
+       <div id="u17_div" class=""></div>
+		<input id="u17_input" class="u17_input"  type="text" value="输入年"  onClick="this.value=''" onkeyup="this.value=this.value.replace(/\D/g,'')"
+    onafterpaste="this.value=this.value.replace(/\D/g,'')" onBlur="if(this.value=='')this.value='输入年'" />
+        
+      </div>
+
+      <!-- Unnamed (下拉列表) -->
+      <div id="u18" name="div2" class="ax_default droplist">
+        <div id="u18_div" class=""></div>
+        <input id="u18_input" class="u18_input"  type="text" value="输入月" onClick="this.value=''" onkeyup="this.value=this.value.replace(/\D/g,'')"
+    onafterpaste="this.value=this.value.replace(/\D/g,'')" onBlur="if(this.value=='')this.value='输入月'"/>
+       
+      </div>
+
+      <!-- Unnamed (下拉列表) -->
+      <div id="u19" name="div3" class="ax_default droplist">
+        <div id="u19_div" class=""></div>
+        <input id="u19_input" class="u19_input"  type="text" value="输入日" onClick="this.value=''" onkeyup="this.value=this.value.replace(/\D/g,'')"
+    onafterpaste="this.value=this.value.replace(/\D/g,'')" onBlur="if(this.value=='')this.value='输入日'" />
+       
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u20" class="ax_default button">
+        <div id="u20_div" class=""></div>
+        <div id="u20_text" class="text ">
+          <input type="button"  onclick="json_post()" style="BACKGROUND-COLOR: transparent;border: 0" value="点击显示结果">
+        </div>
+      </div>
+</form>
+		 <div id="u48" class="ax_default text_field">
+        <div id="u48_div" class=""></div>
+        <output id="u48_input" type="text" class="u48_input"  /> </output>
+      </div>
+	  
+      <!-- Unnamed (图片 ) -->
+      <a href="home.html"><div id="u21" class="ax_default _图片_">
+        <img id="u21_img" class="img " src="images/fuc00/u21.png"/>
+        <div id="u21_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div></a>
+    </div>
+    <script src="resources/scripts/axure/ios.js"></script>
+
+            <script type="text/javascript">
+              function getRandomInRange(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+
+              function json_post() {
+                var InY = document.getElementById("u17_input").value;
+                var InM = document.getElementById("u18_input").value;
+                var InD = document.getElementById("u19_input").value;
+                var object = {};
+                var params = [];
+                var Inputime;
+                Inputime = InY + InM + InD;
+                var nInY = Number(InY);
+                var nInM = Number(InM);
+                var nInD = Number(InD);                                
+                if (nInY < 1900 || nInY > 2019)
+                  alert("请输入正确的年份！");
+                if (nInM < 0 || nInM > 12)
+                  alert("请输入正确的月份！");
+                if (nInD < 0 || nInD > 31)
+                  alert("请输入正确的日期！");        
+
+                object["id"] = getRandomInRange(0,100);
+                object["method"] = "comparetime";
+                object["jsonrpc"] = "2.0";
+                object["params"] = [Inputime];
+
+                var json = JSON.stringify(object);
+                $(document).ready(function () {
+                  $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:5000/",
+                    data: json,
+                    contentType: 'application/json; charset=UTF-8',
+
+                    success: function (data) {
+                      // console.log(data.result);
+                      $("#u48_input").text(data.result);
+                    }
+                  });
+                });
+              }
+            </script>
+
+  </body>
+</html>
