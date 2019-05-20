@@ -1,1 +1,1 @@
-web: flask db upgrade; flask translate compile; gunicorn FJR-Server:app
+web: gunicorn FJR-Server:app
