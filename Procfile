@@ -1,1 +1,1 @@
-web: flask db upgrade; flask translate compile; gunicorn flask-jsonrpc-uestc4:app
+web: flask db upgrade; flask translate compile; gunicorn flask-jsonrpc-uestc5:app
