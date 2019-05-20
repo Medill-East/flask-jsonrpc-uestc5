@@ -1,0 +1,8 @@
+venv/
+log/
+*.sqlite
+*.log
+*.swp
+*.pyc
+*.cpf
+.env
